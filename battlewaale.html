@@ -1,146 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Basic Meta -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BattleWale - Kode Developers</title>
-  <meta name="description" content="BattleWale - Fast-paced strategy game inspired by Indian culture. Developed by Kode Developers.">
-  <link rel="stylesheet" href="battlewaale.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>html { scroll-behavior: smooth; }</style>
-</head>
-<body class="bg-gray-900 text-white font-sans overflow-x-hidden">
 
-  <!-- Cursor Follower -->
-  <div id="cursorGlow"></div>
+  <!-- SEO -->
+  <title>BattleWaale - Kode Developers</title>
+  <meta name="description" content="BattleWaale - Fast-paced strategy game inspired by Indian culture. Developed by Kode Developers.">
+  <meta name="keywords" content="BattleWaale, strategy game, Indian game, Kode Developers, Unity game">
+
+  <!-- Social -->
+  <meta property="og:title" content="BattleWaale - Kode Developers">
+  <meta property="og:description" content="Plan, fight, and dominate in BattleWaale.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Branding -->
+  <link rel="icon" href="favicon.ico">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="battlewaale.css">
+</head>
+
+<body class="font-sans overflow-x-hidden">
+
+  <!-- Loader -->
+  <div id="loader" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black text-white text-3xl font-bold tracking-widest">
+    <span class="glow-text animate-pulse">BattleWaale</span>
+  </div>
 
   <!-- Navbar -->
-  <nav id="navbar" class="fixed top-4 left-1/2 -translate-x-1/2 bg-gray-900/40 backdrop-blur-xl rounded-full shadow-md border border-gray-700/50 px-6 py-3 w-[90%] md:w-auto z-50 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]">
+  <nav id="navbar"
+    class="fixed top-4 left-1/2 -translate-x-1/2 backdrop-blur-xl rounded-full shadow-md border px-6 py-3 w-[90%] max-w-5xl z-50 transition-all duration-500">
+
     <div class="flex justify-between items-center">
-      <h1 class="text-lg md:text-xl font-bold text-teal-400 hover:scale-110 transition cursor-pointer glow-text" onclick="window.location='index.html'">Kode Developers</h1>
-      <ul class="hidden md:flex gap-6 text-gray-300 font-medium">
-        <li><a href="index.html" class="nav-link hover:text-teal-300 hover:scale-110 inline-block">Home</a></li>
-        <li><a href="#contact" class="nav-link hover:text-teal-300 hover:scale-110 inline-block">Contact</a></li>
+
+      <!-- Brand -->
+      <h1 class="text-lg md:text-xl font-bold text-teal-400 hover:scale-110 transition cursor-pointer glow-text"
+        onclick="window.location='index.html'">
+        Kode Developers
+      </h1>
+
+      <!-- Desktop Nav -->
+      <ul class="hidden md:flex gap-8 font-medium text-gray-300">
+        <li><a href="Home.html" class="nav-link hover:text-teal-300 transition">Home</a></li>
+        <li><a href="#about" class="nav-link hover:text-teal-300 transition">About</a></li>
+        <li><a href="#characters" class="nav-link hover:text-teal-300 transition">Characters</a></li>
+        <li><a href="#features" class="nav-link hover:text-teal-300 transition">Features</a></li>
       </ul>
-      <button id="menu-btn" class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[6px] focus:outline-none">
-        <span class="bar w-6 h-[2px] bg-teal-400 rounded transition-all duration-300"></span>
-        <span class="bar w-6 h-[2px] bg-teal-400 rounded transition-all duration-300"></span>
-        <span class="bar w-6 h-[2px] bg-teal-400 rounded transition-all duration-300"></span>
-      </button>
+
+      <!-- Controls -->
+      <div class="flex items-center gap-4">
+
+        <!-- Theme Toggle -->
+        <button id="theme-toggle"
+          class="p-2 rounded-full border border-gray-500 hover:scale-110 transition-transform focus:outline-none">
+          🌙
+        </button>
+
+        <!-- Mobile Menu -->
+        <button id="menu-btn"
+          class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[6px] focus:outline-none">
+          <span class="bar w-6 h-[2px] bg-teal-400 rounded transition-all duration-300"></span>
+          <span class="bar w-6 h-[2px] bg-teal-400 rounded transition-all duration-300"></span>
+          <span class="bar w-6 h-[2px] bg-teal-400 rounded transition-all duration-300"></span>
+        </button>
+
+      </div>
     </div>
-    <div id="mobile-menu" class="hidden flex-col mt-4 text-gray-300 font-medium bg-gray-900/80 rounded-3xl p-5 backdrop-blur-2xl shadow-lg border border-gray-700/40 transform scale-y-0 origin-top opacity-0 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]">
-      <a href="index.html" class="nav-link py-2 hover:text-teal-300">Home</a>
-      <a href="#contact" class="nav-link py-2 hover:text-teal-300">Contact</a>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+      class="hidden flex-col mt-4 font-medium rounded-3xl p-5 backdrop-blur-2xl shadow-lg border transform scale-y-0 origin-top opacity-0 transition-all duration-400 text-gray-300">
+      <a href="Home.html" class="py-2 hover:text-teal-300">Home</a>
+      <a href="#about" class="py-2 hover:text-teal-300">About</a>
+      <a href="#characters" class="py-2 hover:text-teal-300">Characters</a>
+      <a href="#features" class="py-2 hover:text-teal-300">Features</a>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section id="home" class="h-screen flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
-    <h1 class="text-5xl md:text-7xl font-extrabold mb-6 fade-up delay-1 leading-tight glow-text">BattleWale <span class="text-teal-400">– Strategy with Indian Flair</span></h1>
-    <p class="text-gray-300 text-lg md:text-xl max-w-2xl mb-8 fade-up delay-2 leading-relaxed">
+  <!-- Hero -->
+  <section id="home"
+    class="min-h-screen flex flex-col justify-center items-center text-center px-6 relative overflow-hidden">
+
+    <h1 class="text-5xl md:text-7xl font-extrabold mb-6 fade-up delay-1 leading-tight glow-text">
+      BattleWaale <span class="text-teal-400">– Strategy with Indian Flair</span>
+    </h1>
+
+    <p class="text-lg md:text-xl max-w-2xl mb-8 fade-up delay-2 leading-relaxed text-gray-300">
       Fast-paced strategy game inspired by Indian culture. Plan, fight, and dominate!
     </p>
+
+    <!-- CTA -->
+    <div class="flex flex-col sm:flex-row gap-4 fade-up delay-3">
+      <a href="#characters"
+        class="px-8 py-4 border-2 border-teal-500 text-teal-400 hover:bg-teal-500 hover:text-white rounded-xl font-bold transition-all duration-300">
+        View Characters
+      </a>
+
+      <a href="#features"
+        class="px-8 py-4 border-2 border-teal-500 text-teal-400 hover:bg-teal-500 hover:text-white rounded-xl font-bold transition-all duration-300">
+        Explore Features
+      </a>
+    </div>
   </section>
 
-  <!-- Developer Info -->
-  <section class="py-16 md:py-20 px-6 fade-up max-w-5xl mx-auto">
-    <h2 class="text-3xl font-bold text-teal-300 mb-4 border-b border-gray-700 pb-2">Developer Info</h2>
+  <!-- About -->
+  <section id="about" class="py-16 md:py-20 px-6 max-w-5xl mx-auto fade-up">
+    <h2 class="text-3xl font-bold text-teal-300 mb-4 border-b border-gray-700 pb-2">
+      Developer Info
+    </h2>
+
     <ul class="list-disc list-inside space-y-2 text-gray-300">
       <li><b>Developer:</b> Kode Developers</li>
-      <li><b>Engine:</b> Python</li>
+      <li><b>Engine:</b> Unity</li>
       <li><b>Target:</b> Cross-platform (Android)</li>
       <li><b>Libraries:</b> Kivy, KivyMD, Pillow, JSON, etc.</li>
     </ul>
   </section>
 
-  <!-- Character Tables Section -->
-  <section class="py-16 md:py-20 px-6 fade-up max-w-6xl mx-auto space-y-12">
+  <!-- Characters -->
+  <section id="characters" class="py-16 md:py-20 px-6 max-w-6xl mx-auto space-y-12 fade-up">
 
-    <!-- Common Characters -->
-    <h3 class="text-2xl font-semibold text-yellow-300 mb-3">Common Characters</h3>
-    <div class="overflow-x-auto">
-      <table class="border border-gray-700 rounded-lg overflow-hidden">
-        <thead class="bg-gray-700 text-teal-300">
-          <tr><th>Name</th><th>DOB</th><th>Ability</th></tr>
-        </thead>
-        <tbody class="bg-gray-800 divide-y divide-gray-700 text-gray-300">
-          <tr class="hover:bg-gray-700"><td>Ayush</td><td>21 Oct 2007</td><td>Healing Presence – Regenerates 1.5 HP/sec when still</td></tr>
-          <tr class="hover:bg-gray-700"><td>Mohit</td><td>2 Aug 2005</td><td>Athletic Build – Moves 8% faster</td></tr>
-          <tr class="hover:bg-gray-700"><td>Saurabh</td><td>17 Sep 2006</td><td>Mobile Cover – 10% damage reduction while crouched/behind cover</td></tr>
-          <tr class="hover:bg-gray-700"><td>Himanshu</td><td>22 Jun 1995</td><td>Crime Instinct – Louder enemy sounds, 20% wider hearing radius</td></tr>
-        </tbody>
-      </table>
+    <!-- Common -->
+    <div class="glass-card p-6">
+      <h3 class="text-2xl font-semibold text-yellow-300 mb-4">Common Characters</h3>
+      <p class="text-gray-300">Ayush, Mohit, Saurabh, Himanshu</p>
     </div>
 
-    <!-- Uncommon Characters -->
-    <h3 class="text-2xl font-semibold text-green-300 mb-3">Uncommon Characters</h3>
-    <div class="overflow-x-auto">
-      <table class="border border-gray-700 rounded-lg overflow-hidden">
-        <thead class="bg-gray-700 text-teal-300">
-          <tr><th>Name</th><th>DOB</th><th>Ability</th></tr>
-        </thead>
-        <tbody class="bg-gray-800 divide-y divide-gray-700 text-gray-300">
-          <tr class="hover:bg-gray-700"><td>Daksh</td><td>19 Sep 1997</td><td>Calm Counter – 15% damage reduction when HP &lt;60</td></tr>
-          <tr class="hover:bg-gray-700"><td>Chirag</td><td>12 Dec 2006</td><td>Flash Bomb – Disables enemy abilities</td></tr>
-          <tr class="hover:bg-gray-700"><td>Naved</td><td>9 May 2005</td><td>Born Shooter – +5% damage, +15% fire rate</td></tr>
-          <tr class="hover:bg-gray-700"><td>Udit</td><td>17 Jul 2006</td><td>Eagle Eye – Blinds enemies</td></tr>
-        </tbody>
-      </table>
+    <!-- Uncommon -->
+    <div class="glass-card p-6">
+      <h3 class="text-2xl font-semibold text-green-300 mb-4">Uncommon Characters</h3>
+      <p class="text-gray-300">Daksh, Chirag, Naved, Udit</p>
     </div>
 
-    <!-- Rare Characters -->
-    <h3 class="text-2xl font-semibold text-blue-300 mb-3">Rare Characters</h3>
-    <div class="overflow-x-auto">
-      <table class="border border-gray-700 rounded-lg overflow-hidden">
-        <thead class="bg-gray-700 text-teal-300">
-          <tr><th>Name</th><th>DOB</th><th>Ability</th></tr>
-        </thead>
-        <tbody class="bg-gray-800 divide-y divide-gray-700 text-gray-300">
-          <tr class="hover:bg-gray-700"><td>Shubham</td><td>3 Nov 2004</td><td>Second Chance – Auto-revive after one death</td></tr>
-          <tr class="hover:bg-gray-700"><td>Naveen</td><td>9 Dec 2006</td><td>Efficient Support – 25% cheaper items for teammates</td></tr>
-          <tr class="hover:bg-gray-700"><td>Karry</td><td>8 Feb 2006</td><td>Sticky Death – Throws sticky bomb at nearest enemy</td></tr>
-          <tr class="hover:bg-gray-700"><td>Hussain</td><td>5 May 2005</td><td>Mirage – Creates clone to distract enemies</td></tr>
-          <tr class="hover:bg-gray-700"><td>Aman</td><td>4 Oct 2007</td><td>Ghost Step – Invisible for 5 seconds</td></tr>
-        </tbody>
-      </table>
+    <!-- Rare -->
+    <div class="glass-card p-6">
+      <h3 class="text-2xl font-semibold text-blue-300 mb-4">Rare Characters</h3>
+      <p class="text-gray-300">Shubham, Naveen, Karry, Hussain, Aman</p>
     </div>
 
-    <!-- Epic Characters -->
-    <h3 class="text-2xl font-semibold text-purple-300 mb-3">Epic Characters</h3>
-    <div class="overflow-x-auto">
-      <table class="border border-gray-700 rounded-lg overflow-hidden">
-        <thead class="bg-gray-700 text-teal-300">
-          <tr><th>Name</th><th>DOB</th><th>Ability</th></tr>
-        </thead>
-        <tbody class="bg-gray-800 divide-y divide-gray-700 text-gray-300">
-          <tr class="hover:bg-gray-700"><td>Mayank</td><td>18 Feb 2007</td><td>Magnet Field – Diverts enemy bullets and grenades</td></tr>
-          <tr class="hover:bg-gray-700"><td>Shrishti</td><td>30 Nov 2006</td><td>Phoenix Mode – +20% Damage, self-heals 6s</td></tr>
-          <tr class="hover:bg-gray-700"><td>Anjalee</td><td>24 Dec 2006</td><td>Shadow Dash – Short teleportation with 2 charges</td></tr>
-          <tr class="hover:bg-gray-700"><td>Anushka</td><td>10 Jan 2007</td><td>not decided yet</td></tr>
-        </tbody>
-      </table>
+    <!-- Epic -->
+    <div class="glass-card p-6">
+      <h3 class="text-2xl font-semibold text-purple-300 mb-4">Epic Characters</h3>
+      <p class="text-gray-300">Mayank, Shrishti, Anjalee, Anushka</p>
     </div>
 
-    <!-- Legendary Characters -->
-    <h3 class="text-2xl font-semibold text-red-300 mb-3">Legendary Characters</h3>
-    <div class="overflow-x-auto">
-      <table class="border border-gray-700 rounded-lg overflow-hidden">
-        <thead class="bg-gray-700 text-teal-300">
-          <tr><th>Name</th><th>DOB</th><th>Ability</th></tr>
-        </thead>
-        <tbody class="bg-gray-800 divide-y divide-gray-700 text-gray-300">
-          <tr class="hover:bg-gray-700"><td>Developer</td><td>19 Oct 2007</td><td>Divine shield – Immune 6s, allies +40% damage resistance</td></tr>
-          <tr class="hover:bg-gray-700"><td>Shivam</td><td>3 Nov 2004</td><td>Death wave – Enemies take +30% damage for 5s</td></tr>
-          <tr class="hover:bg-gray-700"><td>Atharva</td><td>16 Oct 2006</td><<td>Zone maker – Freezes one enemy & slows others in zone</td></tr>
-        </tbody>
-      </table>
+    <!-- Legendary -->
+    <div class="glass-card p-6">
+      <h3 class="text-2xl font-semibold text-red-300 mb-4">Legendary Characters</h3>
+      <p class="text-gray-300">Developer, Shivam, Atharva</p>
     </div>
 
   </section>
 
-  <!-- Ranking & Upcoming -->
-  <section class="py-16 md:py-20 px-6 fade-up max-w-5xl mx-auto">
-    <h2 class="text-3xl font-bold text-teal-300 mb-4 border-b border-gray-700 pb-2">Ranking System</h2>
+  <!-- Ranking -->
+  <section class="py-16 md:py-20 px-6 max-w-5xl mx-auto fade-up">
+    <h2 class="text-3xl font-bold text-teal-300 mb-4 border-b border-gray-700 pb-2">
+      Ranking System
+    </h2>
+
     <ul class="list-disc list-inside space-y-2 text-gray-300">
       <li>Bronze I–III (510–900 pts)</li>
       <li>Silver I–III (1000–1500 pts)</li>
@@ -152,9 +175,17 @@
     </ul>
   </section>
 
-  <section class="py-16 md:py-20 px-6 fade-up max-w-5xl mx-auto">
-    <h2 class="text-3xl font-bold text-teal-300 mb-4 border-b border-gray-700 pb-2">Upcoming Features</h2>
+  <!-- Features -->
+  <section id="features" class="py-16 md:py-20 px-6 max-w-5xl mx-auto fade-up">
+    <h2 class="text-3xl font-bold text-teal-300 mb-4 border-b border-gray-700 pb-2">
+      Main Features
+    </h2>
+
     <ul class="list-disc list-inside space-y-2 text-gray-300">
+      <li>Tactical team-based battles</li>
+      <li>Rank progression from Bronze to Legendary</li>
+      <li>Offline & Online modes</li>
+      <li>Custom badges & 2D art</li>
       <li>PvP Multiplayer</li>
       <li>Weapon Customization</li>
       <li>Character Skins</li>
@@ -163,30 +194,14 @@
     </ul>
   </section>
 
-  <!-- UI -->
-  <section class="py-16 md:py-20 px-6 fade-up max-w-5xl mx-auto">
-    <h2 class="text-3xl font-bold text-teal-300 mb-4 border-b border-gray-700 pb-2">User Interface</h2>
-    <ul class="list-disc list-inside space-y-2 text-gray-300">
-      <li>Minimalist responsive design</li>
-      <li>Custom animated icons</li>
-      <li>Lobby with interactive background</li>
-    </ul>
-  </section>
-
-  <!-- Features --> 
-  <section class="fade-up"> 
-    <h2 class="text-3xl font-bold text-teal-300 mb-4 border-b border-gray-700 pb-2">Main Features</h2> 
-    <ul class="list-disc list-inside space-y-2 text-gray-300">
-      <li>Tactical team-based battles</li> 
-      <li>Rank progression from Bronze to Legendary</li> 
-      <li>Offline & Online modes</li> 
-      <li>Custom badges & 2D art</li> </ul> 
-  </section>
-
-  <footer class="text-center p-6 mt-10 bg-gray-800 border-t border-gray-700 text-sm text-gray-400">
-    &copy; 2025 Kode Developers. All rights reserved.
+  <!-- Footer -->
+  <footer class="text-center p-6 border-t border-gray-700 text-sm text-gray-400">
+    <p>Built with passion by Kode Developers</p>
+    <p class="mt-1">BattleWaale © 2026. All rights reserved.</p>
   </footer>
 
-  <script src="battlewaale.js"></script>
+  <!-- JS -->
+  <script src="battlewaale.js" defer></script>
+
 </body>
 </html>
