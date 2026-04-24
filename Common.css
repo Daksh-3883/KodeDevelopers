@@ -1,0 +1,325 @@
+/* ======================================================
+   COMMON.CSS
+   Shared styles for all pages
+   Includes:
+   Theme System
+   Navbar
+   Mobile Menu
+   Glass Cards
+   Fade Animations
+   Loader
+   Scrollbar
+   Utility Effects
+====================================================== */
+
+
+/* ===================== ROOT VARIABLES ===================== */
+:root{
+  --bg-color:#ffffff;
+  --text-color:#111827;
+  --text-muted:#4b5563;
+
+  --nav-bg:rgba(255,255,255,0.68);
+  --nav-border:rgba(0,0,0,0.08);
+
+  --card-bg:rgba(255,255,255,0.72);
+  --card-border:rgba(0,0,0,0.08);
+  --card-shadow:rgba(0,0,0,0.06);
+
+  --line-color:#e5e7eb;
+
+  --primary:#5eead4;
+  --primary-dark:#14b8a6;
+}
+
+
+/* ===================== DARK THEME ===================== */
+body.dark-theme{
+  --bg-color:#000000;
+  --text-color:#ffffff;
+  --text-muted:#9ca3af;
+
+  --nav-bg:rgba(17,24,39,0.60);
+  --nav-border:rgba(75,85,99,0.30);
+
+  --card-bg:rgba(30,41,59,0.62);
+  --card-border:rgba(94,234,212,0.20);
+  --card-shadow:rgba(94,234,212,0.08);
+
+  --line-color:#374151;
+}
+
+
+/* ===================== BASE ===================== */
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  padding:0;
+  overflow-x:hidden;
+  font-family:'Inter',sans-serif;
+  background:var(--bg-color);
+  color:var(--text-color);
+  transition:
+    background-color .45s ease,
+    color .45s ease;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+button{
+  font:inherit;
+}
+
+
+/* ===================== BACKGROUND CANVAS ===================== */
+#bg-canvas{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+}
+
+
+/* ===================== LOADER ===================== */
+#loader{
+  transition:
+    opacity .45s ease,
+    visibility .45s ease;
+}
+
+#loader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+
+/* ===================== NAVBAR ===================== */
+#navbar{
+  background:var(--nav-bg);
+  border-color:var(--nav-border);
+  transition:
+    transform .55s cubic-bezier(.4,0,.2,1),
+    box-shadow .35s ease,
+    background-color .35s ease;
+}
+
+
+/* ===================== NAV LINKS ===================== */
+.nav-link{
+  position:relative;
+  transition:color .25s ease;
+}
+
+.nav-link:hover,
+.nav-link.active{
+  color:var(--primary);
+}
+
+.nav-link.active::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-6px;
+  width:100%;
+  height:2px;
+  border-radius:20px;
+  background:var(--primary);
+}
+
+
+/* ===================== MOBILE MENU ===================== */
+#mobile-menu{
+  background:var(--nav-bg);
+  border-color:var(--nav-border);
+}
+
+
+/* ===================== GLASS CARD ===================== */
+.glass-card{
+  position:relative;
+  overflow:hidden;
+
+  background:var(--card-bg);
+  border:1px solid var(--card-border);
+  border-radius:1rem;
+
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+
+  box-shadow:0 0 24px var(--card-shadow);
+
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease,
+    background-color .35s ease;
+}
+
+/* Shine Sweep */
+.glass-card::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-130%;
+  width:55%;
+  height:100%;
+
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.18),
+    transparent
+  );
+
+  transform:skewX(-24deg);
+  transition:left .75s ease;
+}
+
+.glass-card:hover::before{
+  left:145%;
+}
+
+.glass-card:hover{
+  transform:translateY(-8px) scale(1.01);
+  box-shadow:0 14px 34px rgba(94,234,212,.16);
+  border-color:rgba(94,234,212,.58);
+}
+
+
+/* ===================== TEXT EFFECTS ===================== */
+.glow-text{
+  text-shadow:
+    0 0 10px rgba(45,212,191,.45),
+    0 0 20px rgba(45,212,191,.18);
+}
+
+
+/* ===================== FADE-UP ANIMATION ===================== */
+.fade-up{
+  opacity:0;
+  transform:translateY(24px);
+  transition:
+    opacity .8s ease,
+    transform .8s ease;
+}
+
+.fade-up.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.delay-1{ transition-delay:.15s; }
+.delay-2{ transition-delay:.35s; }
+.delay-3{ transition-delay:.55s; }
+.delay-4{ transition-delay:.75s; }
+
+
+/* ===================== LIST INTERACTION ===================== */
+section ul li{
+  transition:
+    transform .25s ease,
+    color .25s ease;
+}
+
+section ul li:hover{
+  transform:translateX(7px);
+  color:var(--primary);
+}
+
+
+/* ===================== FOOTER ===================== */
+footer{
+  border-color:var(--line-color);
+  color:var(--text-muted);
+}
+
+
+/* ===================== BUTTON ENHANCEMENT ===================== */
+.btn-glow:hover{
+  box-shadow:0 0 18px rgba(94,234,212,.28);
+}
+
+
+/* ===================== SCROLLBAR ===================== */
+::-webkit-scrollbar{
+  width:8px;
+}
+
+::-webkit-scrollbar-track{
+  background:var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(
+    180deg,
+    #14b8a6,
+    #06b6d4
+  );
+  border-radius:12px;
+}
+
+
+/* ===================== SELECTION ===================== */
+::selection{
+  background:rgba(94,234,212,.25);
+  color:var(--text-color);
+}
+
+
+/* ===================== TABLE SUPPORT ===================== */
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th, td{
+  padding:.85rem 1rem;
+  text-align:left;
+}
+
+tbody tr{
+  transition:background .25s ease;
+}
+
+tbody tr:hover{
+  background:rgba(94,234,212,.08);
+}
+
+
+/* ===================== MOBILE ===================== */
+@media (max-width:768px){
+
+  .glass-card:hover{
+    transform:none;
+  }
+
+  .nav-link.active::after{
+    display:none;
+  }
+
+}
+
+
+/* ===================== REDUCED MOTION ===================== */
+@media (prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation:none !important;
+    transition:none !important;
+    scroll-behavior:auto !important;
+  }
+
+}
