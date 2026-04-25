@@ -160,15 +160,31 @@ if (fadeEls.length) {
 
 
 // ===================== LOADER =====================
-window.addEventListener("load", () => {
+
+function hideLoader() {
   const loader = document.getElementById("loader");
 
-  if (loader) {
-    setTimeout(() => {
-      loader.classList.add("hide");
-    }, 450);
-  }
+  if (!loader) return;
+
+  loader.style.opacity = "0";
+  loader.style.visibility = "hidden";
+  loader.style.pointerEvents = "none";
+
+  setTimeout(() => {
+    loader.style.display = "none";
+  }, 500);
+}
+
+// Run as soon as DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(hideLoader, 1000);
 });
+
+// Fallback no matter what
+window.addEventListener("load", hideLoader);
+
+// Emergency backup
+setTimeout(hideLoader, 3500);
 
 
 // ===================== ACTIVE NAV LINK =====================
