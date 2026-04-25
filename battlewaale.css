@@ -1,199 +1,126 @@
-/* ===================== THEME VARIABLES ===================== */
-:root{
-  --bg-color:#ffffff;
-  --text-color:#111827;
-  --text-muted:#4b5563;
+/* ======================================================
+   BATTLEWAALE.CSS
+   BattleWaale Page Specific Styles
+====================================================== */
 
-  --nav-bg:rgba(255,255,255,0.65);
-  --nav-border:rgba(0,0,0,0.08);
 
-  --card-bg:rgba(255,255,255,0.72);
-  --card-border:rgba(0,0,0,0.08);
-  --card-shadow:rgba(0,0,0,0.06);
-
-  --line-color:#e5e7eb;
+/* ================= HERO ================= */
+#home{
+  position:relative;
+  min-height:100vh;
 }
 
-body.dark-theme{
-  --bg-color:#000000;
-  --text-color:#ffffff;
-  --text-muted:#9ca3af;
-
-  --nav-bg:rgba(17,24,39,0.60);
-  --nav-border:rgba(75,85,99,0.30);
-
-  --card-bg:rgba(30,41,59,0.60);
-  --card-border:rgba(94,234,212,0.18);
-  --card-shadow:rgba(94,234,212,0.08);
-
-  --line-color:#374151;
-}
-
-/* ===================== BASE ===================== */
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  margin:0;
-  padding:0;
-  font-family:'Inter',sans-serif;
-  background:var(--bg-color);
-  color:var(--text-color);
-  overflow-x:hidden;
-  transition:background-color .45s ease,color .45s ease;
-}
-
-/* ===================== BACKGROUND CANVAS ===================== */
-#bg-canvas{
-  position:fixed;
+#home::before{
+  content:"";
+  position:absolute;
   inset:0;
-  z-index:-2;
+  background:
+    radial-gradient(circle at top left,
+    rgba(94,234,212,0.10),
+    transparent 34%),
+    radial-gradient(circle at bottom right,
+    rgba(239,68,68,0.10),
+    transparent 34%);
   pointer-events:none;
 }
 
-/* ===================== LOADER ===================== */
-#loader{
-  transition:opacity .45s ease, visibility .45s ease;
+#home h1{
+  font-size:clamp(3rem,8vw,6rem);
+  line-height:1.03;
+  letter-spacing:-1px;
 }
 
-#loader.hide{
-  opacity:0;
-  visibility:hidden;
+#home p{
+  max-width:620px;
+  font-size:1.1rem;
 }
 
-/* ===================== NAVBAR ===================== */
-#navbar{
-  background:var(--nav-bg);
-  border-color:var(--nav-border);
-  transition:
-    transform .55s cubic-bezier(.4,0,.2,1),
-    box-shadow .3s ease,
-    background-color .3s ease;
+
+/* ================= HERO IMAGE ================= */
+.hero-art{
+  width:100%;
+  max-width:560px;
+  margin:auto;
+  border-radius:1.25rem;
+  box-shadow:0 20px 50px rgba(0,0,0,0.28);
 }
 
-.nav-link.active,
-.nav-link:hover{
-  color:#5eead4;
+
+/* ================= CTA ================= */
+#home a{
+  min-width:210px;
 }
 
-/* ===================== TEXT ===================== */
-.glow-text{
-  text-shadow:
-    0 0 10px rgba(45,212,191,.45),
-    0 0 20px rgba(45,212,191,.18);
+#home a:hover{
+  transform:translateY(-3px);
 }
 
-/* ===================== FADE UP ===================== */
-.fade-up{
-  opacity:0;
-  transform:translateY(22px);
-  transition:all .8s ease;
+
+/* ================= SECTION HEADINGS ================= */
+h2{
+  font-size:clamp(2rem,5vw,3rem);
+  margin-bottom:1rem;
 }
 
-.fade-up.show{
-  opacity:1;
-  transform:translateY(0);
+
+/* ================= CHARACTER CARDS ================= */
+#characters .glass-card{
+  min-height:180px;
 }
 
-.delay-1{transition-delay:.15s;}
-.delay-2{transition-delay:.35s;}
-.delay-3{transition-delay:.55s;}
+/* rarity glow */
+#characters .glass-card:nth-child(1){border-color:#facc15;}
+#characters .glass-card:nth-child(2){border-color:#22c55e;}
+#characters .glass-card:nth-child(3){border-color:#3b82f6;}
+#characters .glass-card:nth-child(4){border-color:#a855f7;}
+#characters .glass-card:nth-child(5){border-color:#ef4444;}
 
-/* ===================== GLASS CARD ===================== */
-.glass-card{
-  position:relative;
-  overflow:hidden;
+
+/* ================= FEATURES ================= */
+#features li{
+  margin-bottom:.6rem;
+}
+
+
+/* ================= RANK SECTION ================= */
+.rank-box{
+  text-align:center;
+  padding:18px;
+  border-radius:14px;
   background:var(--card-bg);
   border:1px solid var(--card-border);
-  border-radius:1rem;
-  backdrop-filter:blur(14px);
-  box-shadow:0 0 25px var(--card-shadow);
-  transition:
-    transform .35s ease,
-    box-shadow .35s ease,
-    border-color .35s ease,
-    background-color .45s ease;
 }
 
-.glass-card::before{
-  content:"";
-  position:absolute;
-  top:0;
-  left:-130%;
-  width:55%;
-  height:100%;
-  background:linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,.18),
-    transparent
-  );
-  transform:skewX(-24deg);
-  transition:left .75s ease;
+
+/* ================= FOOTER CTA ================= */
+.final-cta{
+  text-align:center;
+  padding:40px 20px;
 }
 
-.glass-card:hover::before{
-  left:145%;
-}
 
-.glass-card:hover{
-  transform:translateY(-8px) scale(1.01);
-  box-shadow:0 15px 35px rgba(94,234,212,.16);
-  border-color:rgba(94,234,212,.55);
-}
-
-/* ===================== LISTS ===================== */
-section ul li{
-  transition:transform .25s ease;
-}
-
-section ul li:hover{
-  transform:translateX(7px);
-}
-
-/* ===================== TABLE SUPPORT (if reused later) ===================== */
-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:620px;
-}
-
-th,td{
-  padding:.85rem 1rem;
-  text-align:left;
-}
-
-tbody tr:hover{
-  background:rgba(94,234,212,.08);
-}
-
-/* ===================== FOOTER ===================== */
-footer{
-  border-color:var(--line-color);
-}
-
-/* ===================== SCROLLBAR ===================== */
-::-webkit-scrollbar{
-  width:8px;
-}
-
-::-webkit-scrollbar-thumb{
-  background:linear-gradient(180deg,#14b8a6,#06b6d4);
-  border-radius:10px;
-}
-
-::-webkit-scrollbar-track{
-  background:var(--bg-color);
-}
-
-/* ===================== MOBILE ===================== */
+/* ================= MOBILE ================= */
 @media (max-width:768px){
-  nav ul{
-    display:none;
+
+  #home{
+    text-align:center;
   }
 
-  .glass-card:hover{
-    transform:none;
+  #home p{
+    margin:auto;
   }
+
+  #home a{
+    width:100%;
+    min-width:100%;
+  }
+
+  .hero-art{
+    margin-top:30px;
+  }
+
+  #characters .glass-card{
+    min-height:auto;
+  }
+
 }
