@@ -1,56 +1,58 @@
 /* ======================================================
    COMMON.CSS
-   Shared styles for all pages
-   Includes:
-   Theme System
-   Navbar
-   Mobile Menu
-   Glass Cards
-   Fade Animations
-   Loader
-   Scrollbar
-   Utility Effects
+   Shared Global Styles
 ====================================================== */
 
 
-/* ===================== ROOT VARIABLES ===================== */
+/* ================= ROOT VARIABLES ================= */
 :root{
-  --bg-color:#ffffff;
-  --text-color:#111827;
-  --text-muted:#4b5563;
+  --bg-color:#f8fafc;
+  --text-color:#0f172a;
+  --text-muted:#475569;
 
-  --nav-bg:rgba(255,255,255,0.68);
-  --nav-border:rgba(0,0,0,0.08);
+  --nav-bg:rgba(255,255,255,0.72);
+  --nav-border:rgba(15,23,42,0.08);
 
   --card-bg:rgba(255,255,255,0.72);
-  --card-border:rgba(0,0,0,0.08);
-  --card-shadow:rgba(0,0,0,0.06);
+  --card-border:rgba(255,255,255,0.55);
+  --card-shadow:rgba(15,23,42,0.08);
 
-  --line-color:#e5e7eb;
+  --primary:#14b8a6;
+  --primary-soft:rgba(20,184,166,0.18);
+
+  --section-line:rgba(15,23,42,0.06);
+
+  --overlay:rgba(255,255,255,0.18);
+}
+
+
+/* ================= DARK THEME ================= */
+body.dark-theme{
+  --bg-color:#020617;
+  --text-color:#f8fafc;
+  --text-muted:#94a3b8;
+
+  --nav-bg:rgba(2,6,23,0.70);
+  --nav-border:rgba(148,163,184,0.14);
+
+  --card-bg:rgba(15,23,42,0.64);
+  --card-border:rgba(94,234,212,0.16);
+  --card-shadow:rgba(0,0,0,0.32);
 
   --primary:#5eead4;
-  --primary-dark:#14b8a6;
+  --primary-soft:rgba(94,234,212,0.16);
+
+  --section-line:rgba(255,255,255,0.05);
+
+  --overlay:rgba(0,0,0,0.34);
 }
 
 
-/* ===================== DARK THEME ===================== */
-body.dark-theme{
-  --bg-color:#000000;
-  --text-color:#ffffff;
-  --text-muted:#9ca3af;
-
-  --nav-bg:rgba(17,24,39,0.60);
-  --nav-border:rgba(75,85,99,0.30);
-
-  --card-bg:rgba(30,41,59,0.62);
-  --card-border:rgba(94,234,212,0.20);
-  --card-shadow:rgba(94,234,212,0.08);
-
-  --line-color:#374151;
+/* ================= BASE ================= */
+*{
+  box-sizing:border-box;
 }
 
-
-/* ===================== BASE ===================== */
 html{
   scroll-behavior:smooth;
 }
@@ -62,9 +64,7 @@ body{
   font-family:'Inter',sans-serif;
   background:var(--bg-color);
   color:var(--text-color);
-  transition:
-    background-color .45s ease,
-    color .45s ease;
+  transition:background .35s ease,color .35s ease;
 }
 
 img{
@@ -79,48 +79,60 @@ a{
 
 button{
   font:inherit;
+  cursor:pointer;
 }
 
 
-/* ===================== BACKGROUND CANVAS ===================== */
+/* ================= BACKGROUND ================= */
 #bg-canvas{
   position:fixed;
   inset:0;
+  z-index:-3;
+  pointer-events:none;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:var(--overlay);
   z-index:-2;
+  transition:background .35s ease;
   pointer-events:none;
 }
 
 
-/* ===================== LOADER ===================== */
+/* ================= LOADER ================= */
 #loader{
   position:fixed;
   inset:0;
   z-index:99999;
-  background:#000;
   display:flex;
   align-items:center;
   justify-content:center;
-  transition:opacity .5s ease, visibility .5s ease;
+  background:#020617;
+  color:#ffffff;
+  transition:opacity .45s ease, visibility .45s ease;
 }
 
 #loader.hide{
   opacity:0;
   visibility:hidden;
+  pointer-events:none;
 }
 
 
-/* ===================== NAVBAR ===================== */
+/* ================= NAVBAR ================= */
 #navbar{
   background:var(--nav-bg);
-  border-color:var(--nav-border);
-  transition:
-    transform .55s cubic-bezier(.4,0,.2,1),
-    box-shadow .35s ease,
-    background-color .35s ease;
+  border:1px solid var(--nav-border);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  transition:all .35s ease;
 }
 
 
-/* ===================== NAV LINKS ===================== */
+/* ================= LINKS ================= */
 .nav-link{
   position:relative;
   transition:color .25s ease;
@@ -143,14 +155,15 @@ button{
 }
 
 
-/* ===================== MOBILE MENU ===================== */
+/* ================= MOBILE MENU ================= */
 #mobile-menu{
   background:var(--nav-bg);
-  border-color:var(--nav-border);
+  border:1px solid var(--nav-border);
 }
 
 
-/* ===================== GLASS CARD ===================== */
+/* ================= GLASS CARDS ================= */
+/* Theme-matching cards (light = white glass, dark = dark glass) */
 .glass-card{
   position:relative;
   overflow:hidden;
@@ -162,61 +175,78 @@ button{
   backdrop-filter:blur(14px);
   -webkit-backdrop-filter:blur(14px);
 
-  box-shadow:0 0 24px var(--card-shadow);
+  box-shadow:0 12px 32px var(--card-shadow);
 
   transition:
-    transform .35s ease,
-    box-shadow .35s ease,
+    transform .30s ease,
+    background .35s ease,
     border-color .35s ease,
-    background-color .35s ease;
+    box-shadow .35s ease;
 }
 
-/* Shine Sweep */
 .glass-card::before{
   content:"";
   position:absolute;
   top:0;
-  left:-130%;
-  width:55%;
+  left:-140%;
+  width:60%;
   height:100%;
-
   background:linear-gradient(
     120deg,
     transparent,
-    rgba(255,255,255,.18),
+    rgba(255,255,255,0.22),
     transparent
   );
-
   transform:skewX(-24deg);
-  transition:left .75s ease;
+  transition:left .7s ease;
 }
 
 .glass-card:hover::before{
-  left:145%;
+  left:150%;
 }
 
 .glass-card:hover{
-  transform:translateY(-8px) scale(1.01);
-  box-shadow:0 14px 34px rgba(94,234,212,.16);
-  border-color:rgba(94,234,212,.58);
+  transform:translateY(-8px);
+  box-shadow:0 18px 42px rgba(0,0,0,0.18);
+  border-color:var(--primary);
 }
 
 
-/* ===================== TEXT EFFECTS ===================== */
+/* ================= TYPOGRAPHY ================= */
+h1,h2,h3,h4,h5,h6{
+  color:var(--text-color);
+  margin-top:0;
+}
+
+p,li,span{
+  color:var(--text-muted);
+}
+
+strong,b{
+  color:var(--text-color);
+}
+
+.text-accent{
+  color:var(--primary);
+}
+
 .glow-text{
-  text-shadow:
-    0 0 10px rgba(45,212,191,.45),
-    0 0 20px rgba(45,212,191,.18);
+  text-shadow:0 0 18px var(--primary-soft);
 }
 
 
-/* ===================== FADE-UP ANIMATION ===================== */
+/* ================= SECTIONS ================= */
+section{
+  position:relative;
+  border-bottom:1px solid var(--section-line);
+}
+
+
+/* ================= FADE UP ================= */
 .fade-up{
   opacity:0;
   transform:translateY(24px);
-  transition:
-    opacity .8s ease,
-    transform .8s ease;
+  transition:all .75s ease;
 }
 
 .fade-up.show{
@@ -224,39 +254,19 @@ button{
   transform:translateY(0);
 }
 
-.delay-1{ transition-delay:.15s; }
-.delay-2{ transition-delay:.35s; }
-.delay-3{ transition-delay:.55s; }
-.delay-4{ transition-delay:.75s; }
+.delay-1{transition-delay:.15s;}
+.delay-2{transition-delay:.30s;}
+.delay-3{transition-delay:.45s;}
+.delay-4{transition-delay:.60s;}
 
 
-/* ===================== LIST INTERACTION ===================== */
-section ul li{
-  transition:
-    transform .25s ease,
-    color .25s ease;
-}
-
-section ul li:hover{
-  transform:translateX(7px);
-  color:var(--primary);
-}
-
-
-/* ===================== FOOTER ===================== */
-footer{
-  border-color:var(--line-color);
-  color:var(--text-muted);
-}
-
-
-/* ===================== BUTTON ENHANCEMENT ===================== */
+/* ================= BUTTON HELPERS ================= */
 .btn-glow:hover{
-  box-shadow:0 0 18px rgba(94,234,212,.28);
+  box-shadow:0 0 22px var(--primary-soft);
 }
 
 
-/* ===================== SCROLLBAR ===================== */
+/* ================= SCROLLBAR ================= */
 ::-webkit-scrollbar{
   width:8px;
 }
@@ -266,43 +276,12 @@ footer{
 }
 
 ::-webkit-scrollbar-thumb{
-  background:linear-gradient(
-    180deg,
-    #14b8a6,
-    #06b6d4
-  );
+  background:linear-gradient(180deg,#14b8a6,#06b6d4);
   border-radius:12px;
 }
 
 
-/* ===================== SELECTION ===================== */
-::selection{
-  background:rgba(94,234,212,.25);
-  color:var(--text-color);
-}
-
-
-/* ===================== TABLE SUPPORT ===================== */
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-th, td{
-  padding:.85rem 1rem;
-  text-align:left;
-}
-
-tbody tr{
-  transition:background .25s ease;
-}
-
-tbody tr:hover{
-  background:rgba(94,234,212,.08);
-}
-
-
-/* ===================== MOBILE ===================== */
+/* ================= MOBILE ================= */
 @media (max-width:768px){
 
   .glass-card:hover{
@@ -311,20 +290,6 @@ tbody tr:hover{
 
   .nav-link.active::after{
     display:none;
-  }
-
-}
-
-
-/* ===================== REDUCED MOTION ===================== */
-@media (prefers-reduced-motion:reduce){
-
-  *,
-  *::before,
-  *::after{
-    animation:none !important;
-    transition:none !important;
-    scroll-behavior:auto !important;
   }
 
 }
