@@ -1,232 +1,194 @@
 // ======================================================
 // COMMON.JS
 // Shared logic for all pages
-// Includes:
 // Theme Toggle
-// Navbar Scroll Hide/Show
+// Navbar Scroll
 // Mobile Menu
-// Fade-up Reveal Animation
-// Loader Support
-// Active Nav Highlight
+// Fade Reveal
+// Loader
+// Active Nav
 // ======================================================
 
+document.addEventListener("DOMContentLoaded", () => {
 
-// ===================== THEME TOGGLE =====================
-const themeToggleBtn = document.getElementById("theme-toggle");
+  /* ================= THEME ================= */
+  const themeBtn = document.getElementById("theme-toggle");
 
-function applyTheme(theme) {
-  if (theme === "dark") {
-    document.body.classList.add("dark-theme");
-    if (themeToggleBtn) themeToggleBtn.textContent = "☀️";
-  } else {
-    document.body.classList.remove("dark-theme");
-    if (themeToggleBtn) themeToggleBtn.textContent = "🌙";
+  function applyTheme(mode){
+    if(mode === "dark"){
+      document.body.classList.add("dark-theme");
+      if(themeBtn) themeBtn.textContent = "☀️";
+    }else{
+      document.body.classList.remove("dark-theme");
+      if(themeBtn) themeBtn.textContent = "🌙";
+    }
   }
-}
 
-// Load saved theme
-const savedTheme = localStorage.getItem("theme") || "dark";
-applyTheme(savedTheme);
+  const savedTheme = localStorage.getItem("theme") || "dark";
+  applyTheme(savedTheme);
 
-// Toggle click
-themeToggleBtn?.addEventListener("click", () => {
-  const nextTheme = document.body.classList.contains("dark-theme")
-    ? "light"
-    : "dark";
+  themeBtn?.addEventListener("click", () => {
+    const next = document.body.classList.contains("dark-theme")
+      ? "light"
+      : "dark";
 
-  localStorage.setItem("theme", nextTheme);
-  applyTheme(nextTheme);
-});
+    localStorage.setItem("theme", next);
+    applyTheme(next);
+  });
 
 
-// ===================== MOBILE MENU =====================
-const menuBtn = document.getElementById("menu-btn");
-const mobileMenu = document.getElementById("mobile-menu");
+  /* ================= LOADER ================= */
+  function hideLoader(){
+    const loader = document.getElementById("loader");
+    if(!loader) return;
 
-if (menuBtn && mobileMenu) {
-  const bars = menuBtn.querySelectorAll(".bar");
+    loader.classList.add("hide");
 
-  menuBtn.addEventListener("click", () => {
-    const isOpen = mobileMenu.classList.contains("flex");
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 500);
+  }
 
-    if (!isOpen) {
-      mobileMenu.classList.remove("hidden");
+  setTimeout(hideLoader, 1000);
+  window.addEventListener("load", hideLoader);
+  setTimeout(hideLoader, 3500);
 
-      setTimeout(() => {
-        mobileMenu.classList.remove("scale-y-0", "opacity-0");
-        mobileMenu.classList.add("scale-y-100", "opacity-100", "flex");
-      }, 10);
 
-      bars[0]?.classList.add("rotate-45", "translate-y-[6px]");
-      bars[1]?.classList.add("opacity-0");
-      bars[2]?.classList.add("-rotate-45", "-translate-y-[6px]");
+  /* ================= MOBILE MENU ================= */
+  const menuBtn = document.getElementById("menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
 
-    } else {
-      mobileMenu.classList.remove("scale-y-100", "opacity-100");
-      mobileMenu.classList.add("scale-y-0", "opacity-0");
+  if(menuBtn && mobileMenu){
 
-      setTimeout(() => {
+    const bars = menuBtn.querySelectorAll(".bar");
+
+    menuBtn.addEventListener("click", () => {
+
+      const open = mobileMenu.classList.contains("flex");
+
+      if(!open){
+
+        mobileMenu.classList.remove("hidden");
+
+        setTimeout(() => {
+          mobileMenu.classList.add("flex","scale-y-100","opacity-100");
+          mobileMenu.classList.remove("scale-y-0","opacity-0");
+        },10);
+
+        bars[0]?.classList.add("rotate-45","translate-y-[6px]");
+        bars[1]?.classList.add("opacity-0");
+        bars[2]?.classList.add("-rotate-45","-translate-y-[6px]");
+
+      }else{
+
+        mobileMenu.classList.remove("scale-y-100","opacity-100");
+        mobileMenu.classList.add("scale-y-0","opacity-0");
+
+        setTimeout(() => {
+          mobileMenu.classList.remove("flex");
+          mobileMenu.classList.add("hidden");
+        },300);
+
+        bars.forEach(bar=>{
+          bar.classList.remove(
+            "rotate-45",
+            "-rotate-45",
+            "translate-y-[6px]",
+            "-translate-y-[6px]",
+            "opacity-0"
+          );
+        });
+      }
+
+    });
+
+    mobileMenu.querySelectorAll("a").forEach(link=>{
+      link.addEventListener("click",()=>{
         mobileMenu.classList.remove("flex");
         mobileMenu.classList.add("hidden");
-      }, 350);
-
-      bars.forEach(bar => {
-        bar.classList.remove(
-          "rotate-45",
-          "-rotate-45",
-          "translate-y-[6px]",
-          "-translate-y-[6px]",
-          "opacity-0"
-        );
-      });
-    }
-  });
-
-  // Auto close menu when link clicked
-  mobileMenu.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-      mobileMenu.classList.remove("flex");
-      mobileMenu.classList.add("hidden", "scale-y-0", "opacity-0");
-
-      bars.forEach(bar => {
-        bar.classList.remove(
-          "rotate-45",
-          "-rotate-45",
-          "translate-y-[6px]",
-          "-translate-y-[6px]",
-          "opacity-0"
-        );
       });
     });
+  }
+
+
+  /* ================= NAVBAR SCROLL ================= */
+  const navbar = document.getElementById("navbar");
+
+  let lastY = window.scrollY;
+  let hidden = false;
+
+  window.addEventListener("scroll", () => {
+
+    if(!navbar) return;
+
+    const y = window.scrollY;
+
+    if(y > 30){
+      navbar.style.boxShadow = "0 12px 28px rgba(0,0,0,.14)";
+      navbar.classList.add("scale-95");
+    }else{
+      navbar.style.boxShadow = "none";
+      navbar.classList.remove("scale-95");
+    }
+
+    if(y > lastY && y > 120 && !hidden){
+      navbar.style.transform = "translate(-50%,-140%)";
+      hidden = true;
+    }
+
+    if(y < lastY && hidden){
+      navbar.style.transform = "translate(-50%,0)";
+      hidden = false;
+    }
+
+    lastY = y;
   });
-}
 
 
-// ===================== NAVBAR SCROLL EFFECT =====================
-const navbar = document.getElementById("navbar");
+  /* ================= FADE REVEAL ================= */
+  const fadeEls = document.querySelectorAll(".fade-up");
 
-let lastScrollY = window.scrollY;
-let navHidden = false;
+  if(fadeEls.length){
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12});
 
-window.addEventListener("scroll", () => {
-  if (!navbar) return;
-
-  const currentScroll = window.scrollY;
-
-  // Premium shadow on scroll
-  if (currentScroll > 30) {
-    navbar.classList.add("scale-95");
-    navbar.style.boxShadow = "0 0 28px rgba(79,209,197,0.18)";
-    navbar.style.backdropFilter = "blur(14px)";
-  } else {
-    navbar.classList.remove("scale-95");
-    navbar.style.boxShadow = "0 0 12px rgba(79,209,197,0.08)";
-    navbar.style.backdropFilter = "blur(20px)";
+    fadeEls.forEach(el => observer.observe(el));
   }
 
-  // Hide when scrolling down
-  if (currentScroll > lastScrollY && currentScroll > 120 && !navHidden) {
-    navbar.style.transform = "translate(-50%, -130%)";
-    navHidden = true;
-  }
 
-  // Show when scrolling up
-  else if (currentScroll < lastScrollY && navHidden) {
-    navbar.style.transform = "translate(-50%, 0)";
-    navHidden = false;
-  }
+  /* ================= ACTIVE LINKS ================= */
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-link");
 
-  lastScrollY = currentScroll;
-});
+  function setActive(){
 
+    let current = "";
 
-// ===================== FADE-UP REVEAL =====================
-const fadeEls = document.querySelectorAll(".fade-up");
+    sections.forEach(sec=>{
+      const top = sec.offsetTop - 180;
+      const height = sec.offsetHeight;
 
-if (fadeEls.length) {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-        observer.unobserve(entry.target);
+      if(window.scrollY >= top && window.scrollY < top + height){
+        current = sec.id;
       }
     });
-  }, {
-    threshold: 0.12
-  });
 
-  fadeEls.forEach(el => observer.observe(el));
-}
+    navLinks.forEach(link=>{
+      link.classList.remove("active");
 
-
-// ===================== LOADER =====================
-
-function hideLoader() {
-  const loader = document.getElementById("loader");
-
-  if (!loader) return;
-
-  loader.style.opacity = "0";
-  loader.style.visibility = "hidden";
-  loader.style.pointerEvents = "none";
-
-  setTimeout(() => {
-    loader.style.display = "none";
-  }, 500);
-}
-
-// Run as soon as DOM is ready
-document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(hideLoader, 1000);
-});
-
-// Fallback no matter what
-window.addEventListener("load", hideLoader);
-
-// Emergency backup
-setTimeout(hideLoader, 3500);
-
-
-// ===================== ACTIVE NAV LINK =====================
-const sections = document.querySelectorAll("section[id]");
-const navLinks = document.querySelectorAll(".nav-link");
-
-function setActiveNav() {
-  let current = "";
-
-  sections.forEach(section => {
-    const top = section.offsetTop - 160;
-    const height = section.offsetHeight;
-
-    if (window.scrollY >= top && window.scrollY < top + height) {
-      current = section.getAttribute("id");
-    }
-  });
-
-  navLinks.forEach(link => {
-    link.classList.remove("active");
-
-    const href = link.getAttribute("href");
-
-    if (href === `#${current}`) {
-      link.classList.add("active");
-    }
-  });
-}
-
-window.addEventListener("scroll", setActiveNav);
-window.addEventListener("load", setActiveNav);
-
-
-// ===================== SAFETY RESET ON RESIZE =====================
-window.addEventListener("resize", () => {
-  if (window.innerWidth >= 768 && mobileMenu) {
-    mobileMenu.classList.remove("flex");
-    mobileMenu.classList.add("hidden");
+      if(link.getAttribute("href") === `#${current}`){
+        link.classList.add("active");
+      }
+    });
   }
+
+  window.addEventListener("scroll", setActive);
+  setActive();
+
 });
-
-
-// ===================== CONSOLE BRANDING =====================
-console.log("%cKode Developers ⚡", "color:#5eead4; font-size:16px; font-weight:bold;");
-console.log("%cPowered by clean code.", "color:#9ca3af;");
